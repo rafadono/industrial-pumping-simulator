@@ -9,7 +9,8 @@ WORKDIR /app
 COPY pyproject.toml .
 
 # Install packages directly to the system to avoid path isolation issues
-RUN uv pip install --system -r pyproject.toml
+# Note: we explicitly include pytest so that test-runner containers can run the test suite
+RUN uv pip install --system -r pyproject.toml pytest
 
 # Copy source code and frontend resources
 COPY src/ /app/src/
