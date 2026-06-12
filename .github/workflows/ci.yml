@@ -8,28 +8,12 @@ on:
 
 jobs:
   test:
-    name: Run Python Tests
+    name: Run Python Tests via Docker
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@v3
-        with:
-          enable-cache: true
-          cache-dependency-glob: "pyproject.toml"
-          version: "latest"
-
-      - name: Set up Python
-        run: uv python install 3.12
-
-      - name: Install Dependencies
-        run: |
-          uv venv
-          uv pip install . -r pyproject.toml
-          uv pip install pytest
-
-      - name: Run Pytest
-        run: uv run pytest tests/test_pump.py -v
+      - name: Build and Run Tests
+        run: docker compose run --rm pump_test
