@@ -15,6 +15,6 @@ services:
     volumes:
       - ./src:/app/src
       - ./tests:/app/tests
-    command: ["pytest", "tests/test_pump.py", "-v"]
+    command: ["python", "-m", "pytest", "tests/test_pump.py", "-v"]
     profiles:
       - testing
